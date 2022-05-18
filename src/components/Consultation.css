@@ -1,0 +1,50 @@
+.consultation {
+  display: flex;
+  flex-direction: column;
+  background-color: #eee;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+.free-consult {
+  display: flex;
+  flex-direction: column;
+  background-color: #eee;
+  justify-content: center;
+  align-items: center;
+}
+.free h2 {
+  text-align: center;
+}
+.free p {
+  font-size: 0.95rem;
+}
+.btn-free {
+  display: flex;
+  padding-top: 1rem;
+}
+.btn1 {
+  width: 150px;
+  height: 40px;
+  color: white;
+  background-color: aqua;
+  border: none;
+  border-radius: 3px;
+}
+.btn2 {
+  border: 0;
+  width: 150px;
+  height: 40px;
+  color: rgb(26, 26, 80);
+  background-color: transparent;
+}
+@media screen and (min-width: 700px) {
+  .consultation {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .free h2 {
+    text-align: left;
+  }
+}

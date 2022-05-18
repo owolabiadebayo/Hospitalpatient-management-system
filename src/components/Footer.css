@@ -1,0 +1,23 @@
+.footer {
+  color: white;
+  width: 100%;
+  background-image: url("../../public/images/bg-2.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.footer-1 {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 5rem;
+}
+.news-letter {
+  display: flex;
+  justify-content: space-between;
+}
+.news {
+  width: 100%;
+}
+.letter {
+  width: 100%;
+}

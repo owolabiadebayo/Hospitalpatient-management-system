@@ -1,0 +1,29 @@
+.blogs {
+  width: 100%;
+  background-color: white;
+}
+.blog {
+  width: 90%;
+
+  margin: 0 auto;
+}
+.blog-container {
+  width: 100%;
+  background-color: white;
+}
+.blog img {
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+}
+@media screen and (min-width: 768px) {
+  .blogs {
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+  }
+}

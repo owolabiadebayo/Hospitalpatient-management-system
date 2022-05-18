@@ -1,0 +1,38 @@
+.choose {
+  padding: 4rem 0;
+  background-image: url("../../public/images/bg-2.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #eee;
+  width: 95%;
+  margin: 3rem auto;
+}
+.specialities {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+.doctors {
+  width: 70%;
+  margin: 1em auto;
+}
+@media screen and (min-width: 600px) {
+  .specialities {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .offer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+  .offer1 {
+    width: 50%;
+  }
+  .offer2 {
+    width: 50%;
+  }
+}
