@@ -1,0 +1,42 @@
+.diagnosis-container {
+  width: 100%;
+  background-color: white;
+  height: 89vh;
+}
+.diagnosis-container-1 {
+  width: 80%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+}
+textarea {
+  width: 100%;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+.Prescription {
+  padding-top: 3rem;
+}
+.diagnosis h1,
+.Prescription h1 {
+  margin-bottom: 1rem;
+}
+.btn-send {
+  width: 100px;
+  height: 40px;
+  background-color: black;
+  color: white;
+}
+.send {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+.btn-send:hover {
+  transition: all 0.5s ease-in-out;
+  transform: scale(1.2);
+  background-color: aqua;
+  border: 1px solid aqua;
+}

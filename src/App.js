@@ -1,29 +1,27 @@
 import "./App.css";
-import About from "./components/About";
-import Blog from "./components/Blog";
-import Chat from "./components/Chat";
-import Choose from "./components/Choose";
-import Consultation from "./components/Consultation";
-import Footer from "./components/Footer";
-import HeroSection from "./components/HeroSection";
-import HospitalSect from "./components/HospitalSect";
-import Navbar from "./components/Navbar";
-import Testimonials from "./components/Testimonial";
+import Home from "./components/Home";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import PatientDash from "./pages/PatientDash";
+import DoctorDash from "./pages/DoctorDash";
+import Login from "./pages/Login";
+// import SignUp from "./pages/SignUp";
+import Diagnosis from "./pages/Diagnosis";
+
+// import PatientDash from "./pages/PatientDash";
 
 function App() {
   return (
-    <div className="app">
-      <Navbar />
-      <HeroSection />
-      <About />
-      <HospitalSect />
-      <Consultation />
-      <Choose />
-      <Testimonials />
-      <Chat />
-      <Blog />
-      <Footer />
-    </div>
+    <>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/patient-dash" element={<PatientDash />} />
+          <Route exact path="/doctor-dash" element={<DoctorDash />} />
+          <Route exact path="/doctor-reg" element={<Login />} />
+          <Route exact path="/doctor-signup" element={<Diagnosis />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 

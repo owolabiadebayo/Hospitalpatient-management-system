@@ -20,4 +20,14 @@
 }
 .letter {
   width: 100%;
+  display: flex;
+}
+
+.letter input {
+  width: 70%;
+  height: 60px;
+}
+.letter button {
+  width: 30%;
+  height: 60px;
 }

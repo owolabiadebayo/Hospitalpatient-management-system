@@ -1,5 +1,6 @@
 import React from "react";
 import "./Consultation.css";
+// import { Link } from "react-router-dom";
 
 function Consultation() {
   return (
@@ -13,6 +14,11 @@ function Consultation() {
       </div>
       <div className="btn-free">
         <button className="btn1">Make Appointment</button>
+        {/* <Link
+          to="/patient-dash"
+          // onClick={changeLink}
+        ></Link> */}
+
         <button className="btn2">
           All specialist
           <span>
