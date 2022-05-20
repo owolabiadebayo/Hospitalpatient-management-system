@@ -26,7 +26,7 @@ function Navbar() {
           </li>
 
           <li>
-            <Link to="/doctor-reg">Patient</Link>
+            <Link to="/doctor-login">Patient</Link>
           </li>
           <li>
             <Link to="/doctor-signup">Sign Up</Link>
