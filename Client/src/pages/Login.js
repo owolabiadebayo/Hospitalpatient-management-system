@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import "./Login.css";
 import "./DoctorDash.css";
+import axios from "axios";
 
 function Login() {
   const initialState = Object.freeze({
@@ -20,7 +21,15 @@ const HandleChange= (e) => {
 }
 const HandleSubmit = (e) => {
   e.preventDefault();
-  console.log(formData);
+  axios.post(
+    "http://127.0.0.1:8000/api/register/",
+    formData
+  ).then(res => {
+    console.log(res.data);
+  }
+  )
+
+  
 }
 
 

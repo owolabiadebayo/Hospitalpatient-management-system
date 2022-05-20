@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
+const register = new mongoose.Schema({
     firstName: {
         type: String,
         trim: true,
@@ -8,25 +8,30 @@ const userSchema = new mongoose.Schema({
     lastName: {
         type: String,
         trim: true,
-        required: "Last Name is required"},
+        required: "Last Name is required"
+    },
     email: {
         type: String,
-        trim: true,
         unique: true,
-        required: "Email is required"},
+        trim: true,
+        required: "Email is required"
+    },
     password: {
         type: String,
-        trim: true,
         min: 6,
         max:64,
-        required: "Password is required"},
+        required: "Password is required"
+    },
     gender:{
         type: String,
         required: "Gender is required"
     },
     scheduleNos:{
-        type:Number,
-    }
+        type:String,
+    },
 })
 
-export default mongoose.model("User", userSchema);
+export default mongoose.model("User", register);
+
+//Task do for login
+

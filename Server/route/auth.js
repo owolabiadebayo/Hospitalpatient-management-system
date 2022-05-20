@@ -1,5 +1,8 @@
 const router = require('express').Router();
 
-router.post('/register')
+import { register } from '../controller/User'
+
+
+router.post('/register', register);
 
 module.exports = router;
