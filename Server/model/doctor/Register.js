@@ -1,3 +1,4 @@
+// Do Schema for Doctor
 const mongoose = require('mongoose')
 
 const register = new mongoose.Schema({
@@ -7,7 +8,7 @@ const register = new mongoose.Schema({
         required: "First Name is required"},
     lastName: {
         type: String,
-        trim: true,
+        trim: true, 
         required: "Last Name is required"
     },
     email: {
@@ -23,15 +24,19 @@ const register = new mongoose.Schema({
         required: "Password is required"
     },
     gender:{
-        type: String,
-        required: "Gender is required"
+            type: String,
+            required: "Gender is required"
     },
-    scheduleNos:{
-        type:String,
+    Condition:{
+           type:String,
     },
+    Surgeries:{
+            type: String,
+    },
+    Medication:{
+            type: String,
+    }
 })
 
-export default mongoose.model("User", register);
-
-//Task do for login
-
+export default mongoose.model('Doctor', register)
+      
