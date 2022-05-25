@@ -1,5 +1,6 @@
 import User from '../model/patient/User';
 import Logger from '../model/patient/Logger';
+import Scheduleappt from '../model/patient/Scheduleappt';
 // const {registerVali} = require('../Validation/validation');
 const{loggerValidation,registerValidation} = require('../Validation/validation');
 
@@ -81,3 +82,17 @@ export const signin = async (req, res) => {
         res.status(400).send(err)
     }
 }
+
+export const Schedule = async (req, res) => {
+    const Scheduledata = new Scheduleappt({
+        Concern:req.body.Concern,
+        Symptoms:req.body.Symptoms    
+    })
+    try {
+        await Scheduledata.save()
+        res.send({
+            user:Scheduledata._id})
+    } catch (err){
+        res.status(400).send(err)
+    }
+} 

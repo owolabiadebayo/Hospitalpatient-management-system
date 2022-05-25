@@ -5,6 +5,7 @@ const{loggerValidation, doctorValidation} = require('../Validation/validation');
 
 import bcrypt from 'bcryptjs';
 const jwt = require('jsonwebtoken');
+require("dotenv").config();
 
 
 
@@ -54,23 +55,19 @@ export const doctorsignin = async (req, res) => {
 
     //check if user already exists
     const user = await Doctor.findOne({email: req.body.email});
-    if(!user) return res.status(400).send('Email or password is wrong');
+    if(!user) return res.status(400).send('Email does not exist');
 
     //check if password is correct
     const validPass = await bcrypt.compare(req.body.password, user.password);
-    if(!validPass) return res.status(400).send('Email or password is wrong');
+    if(!validPass) return res.status(400).send('password is wrong');
 
     //create and assign a token
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
-    res.header('auth-token', token).send(token);
-
+    res.header('Authorization', token).send(token);
     const { email, password} = req.body;
-
-    const logindata = new Doctorlogin({
-        
+    const logindata = new Doctorlogin({       
         email,
-        password:hashedPassword,
-        
+        password:hashedPassword,      
     }
     )
     try {
@@ -117,4 +114,13 @@ export const Diagnosis = async (req, res) => {
     }
 } 
 
+//patient
+export const DoctorName = async (req, res) => {
+    const Name = await Doctor.find(req.params._id).select('firstName lastName').exec();
+    res.json(Name);
+}
 
+export const AllDoctor = async (req, res) => {
+    const Doctor = await Doctor.find().select('-email -password').exec();
+    res.json(Doctor);
+}
