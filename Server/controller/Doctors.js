@@ -1,52 +1,43 @@
-import User from "../model/user/Register";
-import UserLogin from "../model/user/Login";
+import Doctor from "../model/doctor/User";
+import DoctorLogin from "../model/doctor/Logger";
+import Scheduleappt from "../model/doctor/Scheduleappt";
 // const {registerVali} = require('../Validation/validation');
 const {
   loggerValidation,
-  UserValidation,
+  registerValidation,
 } = require("../Validation/validation");
 
 import bcrypt from "bcryptjs";
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
 
-export const Userregister = async (req, res) => {
+export const register = async (req, res) => {
   //validate the data
-  const error = UserValidation(req.body);
+  const error = registerValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   //check if user already exists
-  const emailExist = await User.findOne({ email: req.body.email });
+  const emailExist = await Doctor.findOne({ email: req.body.email });
   if (emailExist) return res.status(400).send("Email already exists");
 
   //hash the password
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-  const {
-    firstName,
-    lastName,
-    email,
-    password,
-    gender,
-    Conditon,
-    Surgeries,
-    Medication,
-  } = req.body;
-  const Userdata = new Doctor({
+  const { firstName, lastName, email, password, gender, scheduleNos } =
+    req.body;
+  console.log(firstName, lastName, email, password, gender, scheduleNos);
+  const doctordata = new Doctor({
     firstName,
     lastName,
     email,
     password: hashedPassword,
     gender,
-    Conditon,
-    Surgeries,
-    Medication,
+    scheduleNos,
   });
   try {
-    await Userdata.save();
+    await doctordata.save();
     res.send({
-      user: userdata._id,
+      user: doctordata._id,
     });
   } catch (err) {
     res.status(400).send(err);
@@ -54,31 +45,33 @@ export const Userregister = async (req, res) => {
 };
 
 // Do SignIn
-export const Usersignin = async (req, res) => {
+export const signin = async (req, res) => {
   //validate the data
   const error = loggerValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   //check if user already exists
-  const user = await User.findOne({ email: req.body.email });
-  if (!user) return res.status(400).send("Email does not exist");
+  const user = await Doctor.findOne({ email: req.body.email });
+  if (!user) return res.status(400).send("Email or password is wrong");
 
   //check if password is correct
   const validPass = await bcrypt.compare(req.body.password, user.password);
-  if (!validPass) return res.status(400).send("password is wrong");
+  if (!validPass) return res.status(400).send("Email or password is wrong");
 
   //create and assign a token
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-  res.header("Authorization", token).send(token);
+  res.header("auth-token", token).send(token);
+
   const { email, password } = req.body;
-  const logindata = new UserLogin({
+  console.log(email, password);
+  const loggerdata = new DoctorLogin({
     email,
     password: hashedPassword,
   });
   try {
-    await logindata.save();
+    await loggerdata.save();
     res.send({
-      user: logindata._id,
+      user: loggerdata._id,
     });
   } catch (err) {
     res.status(400).send(err);
@@ -86,13 +79,10 @@ export const Usersignin = async (req, res) => {
 };
 
 export const Schedule = async (req, res) => {
-  const Scheduledata = new Schedule({
-    doctor: req.body.doctor,
-    date: req.body.date,
+  const Scheduledata = new Scheduleappt({
     Concern: req.body.Concern,
     Symptoms: req.body.Symptoms,
   });
-
   try {
     await Scheduledata.save();
     res.send({
@@ -102,16 +92,18 @@ export const Schedule = async (req, res) => {
     res.status(400).send(err);
   }
 };
+export const Diagnosis = async (req, res) => {
+  const Diagnosisdata = new Schedule({
+    Diagnosis: req.body.Diagnosis,
+    Prescription: req.body.Prescription,
+  });
 
-//patient
-export const DoctorName = async (req, res) => {
-  const Name = await Doctor.find(req.params._id)
-    .select("firstName lastName")
-    .exec();
-  res.json(Name);
-};
-
-export const AllDoctor = async (req, res) => {
-  const Doctor = await Doctor.find().select("-email -password").exec();
-  res.json(Doctor);
+  try {
+    await Diagnosisdata.save();
+    res.send({
+      user: Diagnosisdata._id,
+    });
+  } catch (err) {
+    res.status(400).send(err);
+  }
 };

@@ -1,15 +1,12 @@
 import { expressjwt } from "express-jwt";
-import Doctor from '../model/doctor/Register';
+import User from "../model/user/Register";
 
 require("dotenv").config();
 
 export const requireLogin = expressjwt({
-    secret: process.env.TOKEN_SECRET,
-    algorithms: ["HS256"],
-    userProperty: "auth"
+  secret: process.env.TOKEN_SECRET,
+  algorithms: ["HS256"],
+  userProperty: "auth",
 }).unless({
-    path: [
-        "/api/doctorsignin",
-        "/api/doctorregister",
-    ]
+  path: ["/api/doctorsignin", "/api/doctorregister"],
 });
