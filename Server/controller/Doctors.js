@@ -1,7 +1,8 @@
-import Doctor from "../model/doctor/User";
-import DoctorLogin from "../model/doctor/Logger";
+import Doctor from "../model/doctor/doctorregister";
+import DoctorLogin from "../model/doctor/doctorlogin";
 import Scheduleappt from "../model/doctor/Scheduleappt";
-// const {registerVali} = require('../Validation/validation');
+
+
 const {
   loggerValidation,
   registerValidation,
@@ -106,4 +107,16 @@ export const Diagnosis = async (req, res) => {
   } catch (err) {
     res.status(400).send(err);
   }
+};
+
+export const DoctorName = async (req, res) => {
+  const Name = await Doctor.find(req.params._id)
+    .select("firstName lastName")
+    .exec();
+  res.json(Name);
+};
+
+export const AllDoctor = async (req, res) => {
+  const Doctor = await Doctor.find().select("-email -password").exec();
+  res.json(Doctor);
 };

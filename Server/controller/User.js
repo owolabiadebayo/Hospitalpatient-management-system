@@ -1,6 +1,6 @@
 import User from "../model/user/Register";
 import UserLogin from "../model/user/Login";
-// const {registerVali} = require('../Validation/validation');
+
 const {
   loggerValidation,
   UserValidation,
@@ -33,7 +33,7 @@ export const Userregister = async (req, res) => {
     Surgeries,
     Medication,
   } = req.body;
-  const Userdata = new Doctor({
+  const Userdata = new User({
     firstName,
     lastName,
     email,
@@ -46,7 +46,7 @@ export const Userregister = async (req, res) => {
   try {
     await Userdata.save();
     res.send({
-      user: userdata._id,
+      user: Userdata._id,
     });
   } catch (err) {
     res.status(400).send(err);
@@ -103,15 +103,4 @@ export const Schedule = async (req, res) => {
   }
 };
 
-//patient
-export const DoctorName = async (req, res) => {
-  const Name = await Doctor.find(req.params._id)
-    .select("firstName lastName")
-    .exec();
-  res.json(Name);
-};
 
-export const AllDoctor = async (req, res) => {
-  const Doctor = await Doctor.find().select("-email -password").exec();
-  res.json(Doctor);
-};
