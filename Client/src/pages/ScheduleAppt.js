@@ -1,8 +1,35 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import "./DoctorDash";
 import "./ScheduleAppt.css";
+import axios from "axios";
 
 function ScheduleAppt() {
+
+  const [ doctorName, setdoctorName] = useState()
+  
+  const hello = doctorName && doctorName ? doctorName.map((item) => {
+    console.log(item.firstName);
+    <option >{item.firstName}</option>
+  }): <option value="0">No Doctor Available</option>
+  
+
+
+
+
+useEffect(() => {
+fetchDoctor()
+},[])
+
+
+const fetchDoctor = async () => {
+  const res =await axios.get("http://127.0.0.1:8000/api/doctorname");
+  console.log(res);
+  const json = res.data;
+  console.log(json);
+  setdoctorName(json)
+}
+
+
   return (
     <div>
       <nav>
@@ -11,12 +38,10 @@ function ScheduleAppt() {
       </nav>
       <div className="schedule">
         <form action="">
-          <select name="" id="">
-            <option value="0">John Dada</option>
-            <option value="1">John Dada</option>
-            <option value="2">John Dada</option>
-            <option value="33">John Dada</option>
-          </select>
+        <select name="" id="">
+            {hello}
+        </select>
+          
           <p>17/10/2020</p>
           <textarea
             name=""

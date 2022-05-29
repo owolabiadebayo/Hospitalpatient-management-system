@@ -4,7 +4,7 @@ import { register } from "../controller/Doctors";
 import { signin } from "../controller/Doctors";
 import { Userregister } from "../controller/User";
 import { Usersignin } from "../controller/User";
-import { DoctorName } from "../controller/User";
+import { DoctorName } from "../controller/Doctors";
 import { Schedule } from "../controller/Doctors";
 import { requireLogin } from "../middleware/index";
 

@@ -11,7 +11,6 @@ function Login() {
     firstName: "",
     scheduleNos: "",
     gender:"",
-    password:"",
   })
 const [formData, setFormData] = useState(initialState)
 console.log(formData);
@@ -19,17 +18,22 @@ console.log(formData);
 const HandleChange= (e) => {
   setFormData({...formData,[e.target.name]:e.target.value})
 }
-const HandleSubmit = (e) => {
+const HandleSubmit = async (e) =>  {
   e.preventDefault();
-  axios.post(
-    "http://127.0.0.1:8000/api/register/",
-    formData
-  ).then(res => {
-    console.log(res.data);
+  try {
+    axios.post(
+      "http://127.0.0.1:8000/api/register/",
+      formData
+    ).then(res => {
+      console.log(res.data);
+    } 
+    )
+    window.location.href = "/doctor-login"
   }
-  )
-
-  
+  catch (err){
+    console.log(err);
+    window.location.href = "/doctor-signup"
+  } 
 }
 
 

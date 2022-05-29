@@ -27,5 +27,5 @@ function Diagnosis() {
     </div>
   );
 }
-
+``
 export default Diagnosis;
