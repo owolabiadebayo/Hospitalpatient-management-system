@@ -13,7 +13,7 @@ router.post("/signin", signin);
 router.post("/Userregister", Userregister);
 router.post("/Usersignin", Usersignin);
 router.get("/doctorname", DoctorName);
-router.post("/scheduleappt", requireLogin, Schedule);
+router.post("/scheduleappt",requireLogin, Schedule);
 router.get("/Alldoctor", requireLogin, DoctorName);
 
 module.exports = router;

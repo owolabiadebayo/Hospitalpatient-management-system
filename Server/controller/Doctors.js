@@ -81,6 +81,8 @@ export const signin = async (req, res) => {
 
 export const Schedule = async (req, res) => {
   const Scheduledata = new Scheduleappt({
+    doctorName: req.body.doctorName,
+    date: req.body.date,
     Concern: req.body.Concern,
     Symptoms: req.body.Symptoms,
   });
