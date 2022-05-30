@@ -1,5 +1,6 @@
 import React from "react";
 import "./DoctorDash.css";
+import { Link } from "react-router-dom";
 
 function PatientDash() {
   return (
@@ -12,8 +13,13 @@ function PatientDash() {
         <div className="sidebar">
           <ul className="side-links">
             <li>View Medical History</li>
-            <li>View Appointments</li>
-            <li>Schedule Appointments</li>
+            <li>
+              <Link to="/Patient-view">View Appointments</Link>
+            </li>
+            <li>
+              <Link to="/Schedule">Schedule Appointments</Link>
+            </li>
+
             <li>Settings</li>
             <li>Sign Out</li>
           </ul>

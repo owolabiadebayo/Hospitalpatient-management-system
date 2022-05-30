@@ -26,10 +26,10 @@ function Navbar() {
           </li>
 
           <li>
-            <Link to="/doctor-login">Patient</Link>
+            <Link to="/login">Login</Link>
           </li>
           <li>
-            <Link to="/doctor-signup">Sign Up</Link>
+            <Link to="/signup">Sign Up</Link>
           </li>
 
           <li>BLOG</li>

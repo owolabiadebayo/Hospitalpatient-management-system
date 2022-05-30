@@ -3,7 +3,7 @@ import "./Login.css";
 import "./DoctorDash.css";
 import axios from "axios";
 
-function DoctorLogin() {
+function PatientLogin() {
   const initialState = Object.freeze({
     email: "",
     password: "",
@@ -58,4 +58,4 @@ function DoctorLogin() {
   );
 }
 
-export default DoctorLogin;
+export default PatientLogin;

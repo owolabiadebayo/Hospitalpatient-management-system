@@ -3,14 +3,16 @@ import "./Login.css";
 import "./DoctorDash.css";
 import axios from "axios";
 
-function DoctorRegister() {
+function Patientregister() {
   const initialState = Object.freeze({
     email: "",
     password: "",
     lastName: "",
     firstName: "",
-    scheduleNos: "",
+    conditions: "",
     gender: "",
+    surgeries: "",
+    medications: "",
   });
   const [formData, setFormData] = useState(initialState);
   console.log(formData);
@@ -41,7 +43,7 @@ function DoctorRegister() {
       </nav>
       <form className="login-form" onSubmit={HandleSubmit}>
         <div className="login">
-          <h3>Doctors Registration Form</h3>
+          <h3>Patient Registration Form</h3>
           <label htmlFor="">First Name</label>
           <input
             type="text"
@@ -63,13 +65,6 @@ function DoctorRegister() {
             value={formData.email}
             onChange={HandleChange}
           />
-          <label htmlFor="">Schedule No</label>
-          <input
-            type="text"
-            name="scheduleNos"
-            value={formData.scheduleNos}
-            onChange={HandleChange}
-          />
           <label htmlFor="">Gender</label>
           <input
             type="text"
@@ -77,11 +72,25 @@ function DoctorRegister() {
             value={formData.gender}
             onChange={HandleChange}
           />
-          <label htmlFor="">Password</label>
+          <label htmlFor="">Medical History - Conditions</label>
           <input
-            type="password"
-            name="password"
-            value={formData.password}
+            type="text"
+            name="conditions"
+            value={formData.conditions}
+            onChange={HandleChange}
+          />
+          <label htmlFor="">Medical History - Surgeries</label>
+          <input
+            type="text"
+            name="Surgeries"
+            value={formData.surgeries}
+            onChange={HandleChange}
+          />
+          <label htmlFor="">Medical History - Medications</label>
+          <input
+            type="text"
+            name="medications"
+            value={formData.medications}
             onChange={HandleChange}
           />
           <button type="submit">Submit</button>
@@ -91,4 +100,4 @@ function DoctorRegister() {
   );
 }
 
-export default DoctorRegister;
+export default Patientregister;

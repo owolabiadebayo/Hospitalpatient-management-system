@@ -1,7 +1,7 @@
 import React from "react";
-import "./Patientview.css";
+import "./DoctorView.css";
 
-function Patientview() {
+function DoctorView() {
   return (
     <div>
       <nav>
@@ -16,7 +16,6 @@ function Patientview() {
             <p>2</p>
             <p>3</p>
             <p>4</p>
-            <p>5</p>
           </div>
           <div>
             <p>Start-time</p>
@@ -62,17 +61,17 @@ function Patientview() {
           </div>
           <div className="view-flex">
             <p>Diagnosis</p>
-            <button className="btn-pt-view">See Diagnosis</button>
-            <button className="btn-pt-view">See Diagnosis</button>
-            <button className="btn-pt-view">See Diagnosis</button>
-            <button className="btn-pt-view">See Diagnosis</button>
+            <button className="btn-dr-view">See Diagnosis</button>
+            <button className="btn-dr-view">See Diagnosis</button>
+            <button className="btn-dr-view">See Diagnosis</button>
+            <button className="btn-dr-view">See Diagnosis</button>
           </div>
           <div className="view-flex">
             <p>Cancel view</p>
-            <button className="btn-pt-view">Cancel</button>
-            <button className="btn-pt-view">Cancel</button>
-            <button className="btn-pt-view">Cancel</button>
-            <button className="btn-pt-view">Cancel</button>
+            <button className="btn-dr-view">Cancel</button>
+            <button className="btn-dr-view">Cancel</button>
+            <button className="btn-dr-view">Cancel</button>
+            <button className="btn-dr-view">Cancel</button>
           </div>
         </div>
       </div>
@@ -80,4 +79,4 @@ function Patientview() {
   );
 }
 
-export default Patientview;
+export default DoctorView;
