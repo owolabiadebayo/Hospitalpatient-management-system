@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 
-const login = new mongoose.Schema({
+
+const userSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
@@ -14,4 +16,9 @@ const login = new mongoose.Schema({
     required: "Password is required",
   },
 });
-export default mongoose.model("DoctorLogin", login);
+userSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign({ _id: this._id }, process.env.JWTPRIVATEKEY);
+  return token;
+};
+
+export default mongoose.model("DoctorLogin", userSchema);

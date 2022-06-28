@@ -1,122 +1,78 @@
-import Doctor from "../model/doctor/doctorregister";
-import DoctorLogin from "../model/doctor/doctorlogin";
-import Scheduleappt from "../model/doctor/Scheduleappt";
+const router = require("express").Router();
+const { Doctor, validate } = require("../model/doctor/doctorregister");
+// import Scheduleappt from "../model/doctor/Scheduleappt";
 
-
-const {
-  loggerValidation,
-  registerValidation,
-} = require("../Validation/validation");
+// const {
+//   loggerValidation,
+//   registerValidation,
+// } = require("../Validation/validation");
 
 import bcrypt from "bcryptjs";
 const jwt = require("jsonwebtoken");
 
-export const register = async (req, res) => {
-  //validate the data
-  const error = registerValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
-  //check if user already exists
-  const emailExist = await Doctor.findOne({ email: req.body.email });
-  if (emailExist) return res.status(400).send("Email already exists");
-
-  //hash the password
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
-  const { firstName, lastName, email, password, gender, scheduleNos } =
-    req.body;
-  console.log(firstName, lastName, email, password, gender, scheduleNos);
-  const doctordata = new Doctor({
-    firstName,
-    lastName,
-    email,
-    password: hashedPassword,
-    gender,
-    scheduleNos,
-  });
+router.post("/", async (req, res) => {
   try {
-    await doctordata.save();
-    res.send({
-      user: doctordata._id,
-    });
-  } catch (err) {
-    res.status(400).send(err);
+    const { error } = validate(req.body);
+
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const user = await Doctor.findOne({ email: req.body.email });
+
+    if (user) return res.status(409).send({ message: "User already exixts" });
+    const salt = await bcrypt.genSalt(Number(process.env.SALT));
+    const hashPassword = await bcrypt.hash(req.body.password, salt);
+    await new Doctor({ ...req.body, password: hashPassword }).save();
+
+    res.status(201).send({ message: "User created successfully" });
+  } catch (error) {
+    res.status(500).send({ message: "internal server error" });
   }
-};
+});
 
 // Do SignIn
-export const signin = async (req, res) => {
-  //validate the data
-  const error = loggerValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
 
-  //check if user already exists
-  const user = await Doctor.findOne({ email: req.body.email });
-  if (!user) return res.status(400).send("Email or password is wrong");
 
-  //check if password is correct
-  const validPass = await bcrypt.compare(req.body.password, user.password);
-  if (!validPass) return res.status(400).send("Email or password is wrong");
+// export const Schedule = async (req, res) => {
+//   const Scheduledata = new Scheduleappt({
+//     doctorName: req.body.doctorName,
+//     date: req.body.date,
+//     Concern: req.body.Concern,
+//     Symptoms: req.body.Symptoms,
+//   });
+//   try {
+//     await Scheduledata.save();
+//     res.send({
+//       user: Scheduledata._id,
+//     });
+//   } catch (err) {
+//     res.status(400).send(err);
+//   }
+// };
+// export const Diagnosis = async (req, res) => {
+//   const Diagnosisdata = new Schedule({
+//     Diagnosis: req.body.Diagnosis,
+//     Prescription: req.body.Prescription,
+//   });
 
-  //create and assign a token
-  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-  res.header("auth-token", token).send(token);
+//   try {
+//     await Diagnosisdata.save();
+//     res.send({
+//       user: Diagnosisdata._id,
+//     });
+//   } catch (err) {
+//     res.status(400).send(err);
+//   }
+// };
 
-  const { email, password } = req.body;
-  console.log(email, password);
-  const loggerdata = new DoctorLogin({
-    email,
-    password: hashedPassword,
-  });
-  try {
-    await loggerdata.save();
-    res.send({
-      user: loggerdata._id,
-    });
-  } catch (err) {
-    res.status(400).send(err);
-  }
-};
+// export const DoctorName = async (req, res) => {
+//   const Name = await Doctor.find(req.params._id)
+//     .select("firstName lastName")
+//     .exec();
+//   res.json(Name);
+// };
 
-export const Schedule = async (req, res) => {
-  const Scheduledata = new Scheduleappt({
-    Concern: req.body.Concern,
-    Symptoms: req.body.Symptoms,
-  });
-  try {
-    await Scheduledata.save();
-    res.send({
-      user: Scheduledata._id,
-    });
-  } catch (err) {
-    res.status(400).send(err);
-  }
-};
-export const Diagnosis = async (req, res) => {
-  const Diagnosisdata = new Schedule({
-    Diagnosis: req.body.Diagnosis,
-    Prescription: req.body.Prescription,
-  });
-
-  try {
-    await Diagnosisdata.save();
-    res.send({
-      user: Diagnosisdata._id,
-    });
-  } catch (err) {
-    res.status(400).send(err);
-  }
-};
-
-export const DoctorName = async (req, res) => {
-  const Name = await Doctor.find(req.params._id)
-    .select("firstName lastName")
-    .exec();
-  res.json(Name);
-};
-
-export const AllDoctor = async (req, res) => {
-  const Doctor = await Doctor.find().select("-email -password").exec();
-  res.json(Doctor);
-};
+// export const AllDoctor = async (req, res) => {
+//   const Doctor = await Doctor.find().select("-email -password").exec();
+//   res.json(Doctor);
+// };
+module.exports = router;

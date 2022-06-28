@@ -2,29 +2,33 @@ import React, { useState } from "react";
 import "./Login.css";
 import "./DoctorDash.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-function PatientLogin() {
-  const initialState = Object.freeze({
-    email: "",
-    password: "",
-  });
-  const [formData, setFormData] = useState(initialState);
-  console.log(formData);
+function DoctorLogin() {
+  const [data, setData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
 
-  const HandleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+ 	const HandleChange = ({ currentTarget: input }) => {
+    setData({ ...data, [input.name]: input.value });
   };
-  const HandleSubmit = async (e) => {
+ 	const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      axios.post("http://127.0.0.1:8000/api/signin/", formData).then((res) => {
-        console.log(res.data);
-      });
-      window.location.href = "/doctor-dash";
-    } catch (err) {
-      console.log(err);
+      const url = "http://127.0.0.1:8000/api/login";
+      const { data: res } = await axios.post(url, data);
+      localStorage.setItem("token", res.data);
+       window.location.href = "/patient-dash";
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.message);
+      }
     }
   };
+
 
   return (
     <>
@@ -33,24 +37,32 @@ function PatientLogin() {
           <div className="logo">HMS</div>
           <div className="bars">bars</div>
         </nav>
-        <form className="signup-form" onSubmit={HandleSubmit}>
+        <form className="signup-form" onSubmit={handleSubmit}>
           <div className="login">
             <label htmlFor="">Email</label>
             <input
               type="email"
               name="email"
-              value={formData.email}
+              value={data.email}
+              required
               onChange={HandleChange}
             />
             <label htmlFor="">Password</label>
             <input
               type="password"
               name="password"
-              value={formData.password}
+              value={data.password}
+              required
               onChange={HandleChange}
             />
+            {error && <div className="error_msg">{error}</div>}
             <button type="submit">Login</button>
-            <button type="submit">Create Account</button>
+            <div>
+              <h1>New Here ?</h1>
+              <Link to="/Doctor-signup">
+                <button type="button">Create Account</button>
+              </Link>
+            </div>
           </div>
         </form>
       </div>
@@ -58,4 +70,4 @@ function PatientLogin() {
   );
 }
 
-export default PatientLogin;
+export default DoctorLogin;
